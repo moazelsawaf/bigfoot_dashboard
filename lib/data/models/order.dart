@@ -8,7 +8,7 @@ class Order {
   final String name;
   final String address;
   final String phone;
-  final List<OrderItem> orderItems;
+  final List<OrderItem> items;
 
   const Order({
     required this.id,
@@ -17,15 +17,15 @@ class Order {
     required this.name,
     required this.address,
     required this.phone,
-    required this.orderItems,
+    required this.items,
   });
 
-  double get totalPrice => orderItems.fold(
+  double get totalPrice => items.fold(
         0,
         (total, orderItem) => total + orderItem.totalPrice,
       );
 
-  int get numberOfItems => orderItems.fold(
+  int get numberOfItems => items.fold(
         0,
         (total, orderItem) => total + orderItem.quantity,
       );

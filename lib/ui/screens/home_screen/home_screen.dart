@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'tabs/orders_page.dart';
+import 'tabs/orders_tab.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/';
+
   const HomeScreen({super.key});
 
   @override

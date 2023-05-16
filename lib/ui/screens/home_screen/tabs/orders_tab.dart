@@ -1,4 +1,5 @@
 import 'package:bigfoot_dashboard/data/demo_data.dart';
+import 'package:bigfoot_dashboard/ui/screens/order_details_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/order_card.dart';
@@ -20,6 +21,12 @@ class OrdersTab extends StatelessWidget {
           status: order.status,
           numberOfItems: order.numberOfItems,
           totalPrice: order.totalPrice,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              OrderDetailsScreen.routeName,
+              arguments: order.id,
+            );
+          },
         );
       },
     );

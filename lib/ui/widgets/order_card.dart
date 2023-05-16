@@ -11,6 +11,7 @@ class OrderCard extends StatelessWidget {
   final OrderStatus status;
   final int numberOfItems;
   final double totalPrice;
+  final VoidCallback? onTap;
 
   const OrderCard({
     super.key,
@@ -19,11 +20,13 @@ class OrderCard extends StatelessWidget {
     required this.status,
     required this.numberOfItems,
     required this.totalPrice,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       isThreeLine: true,
       leading: CircleAvatar(
         radius: 22,

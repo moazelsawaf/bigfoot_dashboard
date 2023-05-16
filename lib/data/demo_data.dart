@@ -14,8 +14,8 @@ class DemoData {
         status: OrderStatus.pending,
         name: 'John Doe',
         address: '123 Main St.',
-        phone: '123-456-7890',
-        orderItems: [
+        phone: '01123548965',
+        items: [
           OrderItem(
             id: 1,
             name: 'Rice',
@@ -32,8 +32,8 @@ class DemoData {
         status: OrderStatus.pending,
         name: 'John Doe',
         address: '123 Main St.',
-        phone: '123-456-7890',
-        orderItems: [
+        phone: '01123548965',
+        items: [
           OrderItem(
             id: 1,
             name: 'Rice',
@@ -58,8 +58,8 @@ class DemoData {
         status: OrderStatus.pending,
         name: 'John Doe',
         address: '123 Main St.',
-        phone: '123-456-7890',
-        orderItems: [
+        phone: '01123548965',
+        items: [
           OrderItem(
             id: 1,
             name: 'Rice',
