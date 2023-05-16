@@ -1,4 +1,4 @@
-import 'package:bigfoot_dashboard/screens/layout.dart';
+import 'package:bigfoot_dashboard/ui/screens/layout/layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {

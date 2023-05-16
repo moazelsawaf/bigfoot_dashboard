@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'tabs/orders_page.dart';
+
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
 
@@ -35,7 +37,7 @@ class _LayoutScreenState extends State<LayoutScreen>
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.online_prediction_rounded)),
+            Tab(icon: Icon(Icons.receipt)),
             Tab(icon: Icon(Icons.chat)),
           ],
         ),
@@ -47,28 +49,6 @@ class _LayoutScreenState extends State<LayoutScreen>
           Center(child: Text('Chat')),
         ],
       ),
-    );
-  }
-}
-
-class OrdersPage extends StatelessWidget {
-  const OrdersPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(24.0),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Card(
-          child: Center(
-            child: Text('Order $index'),
-          ),
-        );
-      },
     );
   }
 }
