@@ -1,4 +1,4 @@
-import 'package:bigfoot_dashboard/ui/screens/layout/layout.dart';
+import 'package:bigfoot_dashboard/ui/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LayoutScreen(),
+      home: const HomeScreen(),
     );
   }
 }

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../widgets/order_card.dart';
 
-class OrdersPage extends StatelessWidget {
-  const OrdersPage({super.key});
+class OrdersTab extends StatelessWidget {
+  const OrdersTab({super.key});
 
   @override
   Widget build(BuildContext context) {

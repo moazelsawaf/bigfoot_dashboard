@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'tabs/orders_page.dart';
 
-class LayoutScreen extends StatefulWidget {
-  const LayoutScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<LayoutScreen> createState() => _LayoutScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _LayoutScreenState extends State<LayoutScreen>
+class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -45,7 +45,7 @@ class _LayoutScreenState extends State<LayoutScreen>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          OrdersPage(),
+          OrdersTab(),
           Center(child: Text('Chat')),
         ],
       ),
