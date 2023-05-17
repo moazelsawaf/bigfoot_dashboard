@@ -1,6 +1,7 @@
 import 'package:bigfoot_dashboard/data/demo_data.dart';
 import 'package:bigfoot_dashboard/ui/widgets/key_value_item.dart';
 import 'package:bigfoot_dashboard/utils/extensions/datetime_extension.dart';
+import 'package:bigfoot_dashboard/utils/extensions/double_extension.dart';
 import 'package:bigfoot_dashboard/utils/extensions/string_extension.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class OrderDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           KeyValueItem(
                             label: 'Total Price',
-                            value: '\$${order.totalPrice.toStringAsFixed(2)}',
+                            value: order.totalPrice.formattedPrice,
                           ),
                         ],
                       ),
@@ -152,7 +153,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               const SizedBox(height: 8),
                               KeyValueItem(
                                 label: 'Price',
-                                value: '\$${item.price.toStringAsFixed(2)}',
+                                value: item.price.formattedPrice,
                               ),
                             ],
                           ),
