@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
       routes: {
         HomeScreen.routeName: (_) => const HomeScreen(),
         OrderDetailsScreen.routeName: (_) => const OrderDetailsScreen(),

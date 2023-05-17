@@ -63,10 +63,10 @@ class OrderCard extends StatelessWidget {
         children: [
           Text(
             totalPrice.formattedPrice,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
