@@ -1,3 +1,4 @@
+import 'package:bigfoot_dashboard/ui/screens/home_screen/tabs/edit_items_tab.dart';
 import 'package:flutter/material.dart';
 
 import 'tabs/orders_tab.dart';
@@ -19,12 +20,23 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: 2,
+      length: 3,
       vsync: this,
     );
     _tabController.addListener(() {
       setState(() {
-        title = _tabController.index == 0 ? 'Orders' : 'Chat';
+        switch (_tabController.index) {
+          case 0:
+            title = 'Orders';
+            break;
+          case 1:
+            title = 'Chat';
+            break;
+          case 2:
+            title = 'Items';
+            break;
+          default:
+        }
       });
     });
   }
@@ -41,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
           tabs: const [
             Tab(icon: Icon(Icons.receipt)),
             Tab(icon: Icon(Icons.chat)),
+            Tab(icon: Icon(Icons.edit_note))
           ],
         ),
       ),
@@ -49,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen>
         children: const [
           OrdersTab(),
           Center(child: Text('Chat')),
+          EditItemTab(),
         ],
       ),
     );

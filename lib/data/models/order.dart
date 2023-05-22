@@ -22,11 +22,11 @@ class Order {
 
   double get totalPrice => items.fold(
         0,
-        (total, orderItem) => total + orderItem.totalPrice,
+        (total, orderItem) => total + orderItem.price,
       );
 
   int get numberOfItems => items.fold(
         0,
-        (total, orderItem) => total + orderItem.quantity,
+        (total, orderItem) => total + 1,
       );
 }

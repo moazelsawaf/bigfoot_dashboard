@@ -113,56 +113,59 @@ class OrderDetailsScreen extends StatelessWidget {
           ),
           SliverPadding(
             padding: const EdgeInsets.all(16),
-            sliver: SliverList.separated(
-              itemCount: order.items.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final item = order.items[index];
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: item.image,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  // separatorBuilder: (context, index) => const SizedBox(height: 12),
+
+                  final item = order.items[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              imageUrl: item.image,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              KeyValueItem(
-                                label: 'Item ID',
-                                value: '#${item.id}',
-                              ),
-                              const SizedBox(height: 8),
-                              KeyValueItem(
-                                label: 'Name',
-                                value: item.name,
-                              ),
-                              const SizedBox(height: 8),
-                              KeyValueItem(
-                                label: 'Quantity',
-                                value: item.quantity.toString(),
-                              ),
-                              const SizedBox(height: 8),
-                              KeyValueItem(
-                                label: 'Price',
-                                value: item.price.formattedPrice,
-                              ),
-                            ],
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                KeyValueItem(
+                                  label: 'Item ID',
+                                  value: '#${item.id}',
+                                ),
+                                const SizedBox(height: 8),
+                                KeyValueItem(
+                                  label: 'Name',
+                                  value: item.name,
+                                ),
+                                const SizedBox(height: 8),
+                                KeyValueItem(
+                                  label: 'Size',
+                                  value: item.size,
+                                ),
+                                const SizedBox(height: 8),
+                                KeyValueItem(
+                                  label: 'Price',
+                                  value: item.price.formattedPrice,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+                childCount: order.items.length,
+              ),
             ),
           )
         ],
