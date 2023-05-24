@@ -1,6 +1,7 @@
 import 'package:bigfoot_dashboard/ui/screens/home_screen/tabs/edit_items_tab.dart';
 import 'package:flutter/material.dart';
 
+import 'tabs/chat_tab.dart';
 import 'tabs/orders_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen>
         controller: _tabController,
         children: const [
           OrdersTab(),
-          Center(child: Text('Chat')),
+          ChatTab(),
           EditItemTab(),
         ],
       ),
