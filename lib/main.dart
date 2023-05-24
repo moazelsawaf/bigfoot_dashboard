@@ -1,4 +1,5 @@
 import 'package:bigfoot_dashboard/firebase_options.dart';
+import 'package:bigfoot_dashboard/ui/screens/chat_screen.dart';
 import 'package:bigfoot_dashboard/ui/screens/home_screen/home_screen.dart';
 import 'package:bigfoot_dashboard/ui/screens/order_details_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,7 @@ import 'color_scheme.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseAuth.instance.signInAnonymously();
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName: (_) => const HomeScreen(),
         OrderDetailsScreen.routeName: (_) => const OrderDetailsScreen(),
+        ChatScreen.routeName: (_) => const ChatScreen(),
       },
     );
   }

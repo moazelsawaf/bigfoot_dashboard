@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bigfoot_dashboard/data/models/chat.dart';
 import 'package:bigfoot_dashboard/data/models/message.dart';
+import 'package:bigfoot_dashboard/ui/screens/chat_screen.dart';
 import 'package:bigfoot_dashboard/ui/widgets/chat_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,6 +30,15 @@ class ChatTab extends StatelessWidget {
             children: [
               ChatItem(
                 chat: snapshot.data(),
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    ChatScreen.routeName,
+                    arguments: {
+                      'chat': snapshot.data(),
+                      'chatId': snapshot.id,
+                    },
+                  );
+                },
               ),
               const Divider(),
             ],
