@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../data/enums/order_status.dart';
 
 class OrderCard extends StatelessWidget {
-  final int id;
+  final String id;
   final DateTime date;
   final OrderStatus status;
   final int numberOfItems;

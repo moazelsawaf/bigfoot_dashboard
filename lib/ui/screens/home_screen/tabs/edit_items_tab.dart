@@ -1,4 +1,3 @@
-import 'package:bigfoot_dashboard/data/demo_data.dart';
 import 'package:bigfoot_dashboard/data/models/item.dart';
 import 'package:bigfoot_dashboard/ui/widgets/item_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,7 +13,7 @@ class EditItemTab extends StatefulWidget {
 
 class _EditItemTabState extends State<EditItemTab> {
   final query = FirebaseFirestore.instance
-      .collection('items')
+      .collection('products')
       .orderBy('name')
       .withConverter<ItemModel>(
         fromFirestore: (snapshot, _) => ItemModel.fromMap(snapshot.data()!),
@@ -27,7 +26,9 @@ class _EditItemTabState extends State<EditItemTab> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final nameController = TextEditingController();
+          final descriptionController = TextEditingController();
           final priceController = TextEditingController();
+          final imageController = TextEditingController();
           final sizeList = <String>['S', 'M', 'L', 'XL', 'XXL'];
           final selectedSizes = <String>[];
 
@@ -45,17 +46,17 @@ class _EditItemTabState extends State<EditItemTab> {
                 TextButton(
                   onPressed: () async {
                     newItem = ItemModel(
-                      id: DemoData.items.length + 1,
                       name: nameController.text,
+                      description: descriptionController.text,
                       price: double.parse(priceController.text),
                       sizes: selectedSizes.toList(),
-                      image: "https://picsum.photos/200",
+                      image: imageController.text,
                     );
 
                     await FirebaseFirestore.instance
-                        .collection('items')
-                        .doc(newItem.id.toString())
-                        .set(newItem.toMap());
+                        .collection('products')
+                        .doc()
+                        .set(newItem.toMap()..remove('id'));
                     if (context.mounted) Navigator.of(context).pop();
                   },
                   child: const Text("Save"),
@@ -89,6 +90,27 @@ class _EditItemTabState extends State<EditItemTab> {
                     children: [
                       const Expanded(
                         child: Text(
+                          "Description",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: TextField(
+                          controller: descriptionController,
+                          decoration: const InputDecoration(
+                            filled: true,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
                           "Price",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
@@ -97,6 +119,27 @@ class _EditItemTabState extends State<EditItemTab> {
                         flex: 3,
                         child: TextField(
                           controller: priceController,
+                          decoration: const InputDecoration(
+                            filled: true,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Image Url",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: TextField(
+                          controller: imageController,
                           decoration: const InputDecoration(
                             filled: true,
                             border: OutlineInputBorder(),
@@ -173,17 +216,43 @@ class _EditItemTabState extends State<EditItemTab> {
         ),
         itemBuilder: (_, snapshot) {
           final item = snapshot.data();
+          item.id = snapshot.id;
           return ItemCard(
-            id: item.id,
-            image: item.image,
-            name: item.name,
-            price: item.price,
-            sizes: item.sizes,
+            item: item,
+            onHold: () async {
+              // show dialog
+              await showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text("Delete Item"),
+                  content: const Text("Are you sure you want to delete this?"),
+                  actions: [
+                    TextButton(
+                      onPressed: Navigator.of(context).pop,
+                      child: const Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection('products')
+                            .doc(item.id)
+                            .delete();
+                        if (context.mounted) Navigator.of(context).pop();
+                        setState(() {});
+                      },
+                      child: const Text("Delete"),
+                    ),
+                  ],
+                ),
+              );
+            },
             onTap: () async {
-              final nameController = TextEditingController();
-              final priceController = TextEditingController();
-              nameController.text = item.name;
-              priceController.text = item.price.toString();
+              final nameController = TextEditingController(text: item.name);
+              final priceController =
+                  TextEditingController(text: item.price.toString());
+              final imageController = TextEditingController(text: item.image);
+              final descriptionController =
+                  TextEditingController(text: item.description);
               final sizes = item.sizes;
               final sizeList = <String>['S', 'M', 'L', 'XL', 'XXL'];
               final selectedSizes = <String>[];
@@ -206,9 +275,9 @@ class _EditItemTabState extends State<EditItemTab> {
                           sizes: selectedSizes.toList(),
                         );
                         await FirebaseFirestore.instance
-                            .collection('items')
-                            .doc(item.id.toString())
-                            .set(newItem.toMap());
+                            .collection('products')
+                            .doc(item.id)
+                            .update(newItem.toMap());
                         if (context.mounted) Navigator.of(context).pop();
                         setState(() {});
                       },
@@ -243,6 +312,28 @@ class _EditItemTabState extends State<EditItemTab> {
                         children: [
                           const Expanded(
                             child: Text(
+                              "Description",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: TextField(
+                              controller: descriptionController,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
                               "Price",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -251,6 +342,27 @@ class _EditItemTabState extends State<EditItemTab> {
                             flex: 3,
                             child: TextField(
                               controller: priceController,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "Image Url",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: TextField(
+                              controller: imageController,
                               decoration: const InputDecoration(
                                 filled: true,
                                 border: OutlineInputBorder(),

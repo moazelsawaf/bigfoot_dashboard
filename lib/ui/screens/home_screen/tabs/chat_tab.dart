@@ -68,7 +68,7 @@ class ChatTab extends StatelessWidget {
     final chat = Chat(
       clientId: 'testClientId',
       clientName: 'Test Client',
-      orderId: Random().nextInt(1000000000).toString(),
+      productId: Random().nextInt(1000000000).toString(),
       lastMessage: Message(
         message: 'TESTING ⚠',
         createdAt: Timestamp.now(),

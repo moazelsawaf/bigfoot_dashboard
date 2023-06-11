@@ -28,8 +28,10 @@ class ChatItem extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 4),
-          Text('Order #${chat.orderId}'),
+          if (chat.productId != null) ...[
+            const SizedBox(height: 4),
+            Text('Product #${chat.productId}'),
+          ],
           const SizedBox(height: 4),
           Text.rich(
             TextSpan(children: [

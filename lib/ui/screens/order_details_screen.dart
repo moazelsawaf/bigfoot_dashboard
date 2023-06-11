@@ -1,4 +1,4 @@
-import 'package:bigfoot_dashboard/data/demo_data.dart';
+import 'package:bigfoot_dashboard/data/models/order.dart';
 import 'package:bigfoot_dashboard/ui/widgets/key_value_item.dart';
 import 'package:bigfoot_dashboard/utils/extensions/datetime_extension.dart';
 import 'package:bigfoot_dashboard/utils/extensions/double_extension.dart';
@@ -13,8 +13,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderId = ModalRoute.of(context)!.settings.arguments as int;
-    final order = DemoData.orders.firstWhere((order) => order.id == orderId);
+    final order = ModalRoute.of(context)!.settings.arguments as Order;
     return Scaffold(
       appBar: AppBar(
         title: Text('Order # ${order.id}'),
@@ -46,7 +45,7 @@ class OrderDetailsScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           KeyValueItem(
                             label: 'Date',
-                            value: order.date.formattedDate,
+                            value: order.date.toDate().formattedDate,
                           ),
                           const SizedBox(height: 8),
                           KeyValueItem(

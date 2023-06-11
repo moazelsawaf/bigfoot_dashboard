@@ -2,7 +2,6 @@ import 'package:bigfoot_dashboard/data/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/models/chat.dart';
@@ -42,11 +41,10 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: Text(_chat.clientName),
         actions: [
-          if (kDebugMode)
-            IconButton(
-              onPressed: _addTestClientReply,
-              icon: const Icon(Icons.add),
-            ),
+          IconButton(
+            onPressed: _closeAndDeleteChat,
+            icon: const Icon(Icons.close),
+          ),
         ],
       ),
       body: Column(
@@ -131,5 +129,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
     chat.collection('messages').add(message.toJson());
     chat.update({'lastMessage': message.toJson()});
+  }
+
+  Future<void> _closeAndDeleteChat() async {
+    Navigator.of(context).pop();
+    final chat = FirebaseFirestore.instance.collection('chats').doc(_chatId);
+    await chat.delete();
   }
 }

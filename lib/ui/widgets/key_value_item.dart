@@ -24,6 +24,7 @@ class KeyValueItem extends StatelessWidget {
         Text(
           value,
           textAlign: TextAlign.end,
+          overflow: TextOverflow.fade,
         ),
       ],
     );
